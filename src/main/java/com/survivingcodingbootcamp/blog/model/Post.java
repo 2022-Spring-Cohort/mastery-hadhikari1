@@ -18,7 +18,7 @@ public class Post {
     @ManyToMany(mappedBy="posts")
     private Collection<Hashtag> hashtags;
 
-    protected Post() {
+    public Post() {
     }
 
     public Post(String title,String author, Topic topic, String content) {
@@ -26,9 +26,6 @@ public class Post {
         this.author= author;
         this.topic = topic;
         this.content = content;
-    }
-
-    public Post(String title, String author, String content) {
     }
 
     public Long getId() {
