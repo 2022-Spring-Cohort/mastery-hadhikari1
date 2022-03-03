@@ -23,6 +23,11 @@
             <nav class="main-content__nav topics__nav">
                 <a th:each="topic: ${topics}" th:text="${topic.name}" th:href="'/topics/'+${topic.id}" href="#"
                    class="topics__nav-link"></a>
+                <form class="addTopic" th:action="'/topics/'" method="POST">
+                    <label class="topicName" for="name">Topic Name:</label><br>
+                    <input class="topicName" required type="text" id="Name" name="name"  placeholder="Intro to JS"><br>
+                    <input class="submit" type="submit" value="Submit">
+                </form>
             </nav>
         </section>
     </main>

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/topics")
 public class TopicController {
@@ -21,6 +23,14 @@ public class TopicController {
     public TopicController(TopicRepository topicRepo) {
         this.topicRepo = topicRepo;
     }
+
+    @PostMapping("/")
+    public String addTopics(@RequestParam String name) {
+        Topic topic = new Topic(name);
+        topicRepo.save(topic);
+        return "redirect:/";
+    }
+
     @GetMapping("/{id}")
     public String displaySingleTopic(@PathVariable long id, Model model) {
         model.addAttribute("topic", topicRepo.findById(id).get());
@@ -28,14 +38,12 @@ public class TopicController {
     }
 
     @PostMapping("/{id}")
-    public String addPosts(Model model, @PathVariable Long id, @RequestParam String title, @RequestParam String author,
+    public String addPosts(@PathVariable Long id, @RequestParam String title, @RequestParam String author,
                            @RequestParam String content) {
         Topic topic = topicRepo.findById(id).get();
         Post post = new Post(title, author, topic, content);
         postRepo.save(post);
-//        model.addAttribute("post",post);
         return "redirect:/topics/" + id;
-
     }
 
 }

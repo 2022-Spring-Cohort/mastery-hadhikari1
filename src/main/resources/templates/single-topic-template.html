@@ -19,7 +19,8 @@
             <nav class="main-content__nav posts__nav">
                 <div th:each="post: ${topic.posts}">
                     <a th:text="${post.title}" th:href="'/posts/'+${post.id}" href="#"
-                       class="posts__nav-link"></a>
+                       class="posts__nav-link">
+                    </a>
                 </div>
                 <li class="addingPost">
                     <form th:action="'/topics/' +${topic.id}" method = "POST">

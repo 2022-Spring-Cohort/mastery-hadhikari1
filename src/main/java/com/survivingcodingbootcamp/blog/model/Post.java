@@ -1,6 +1,8 @@
 package com.survivingcodingbootcamp.blog.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @Entity
@@ -10,6 +12,9 @@ public class Post {
     private Long id;
     private String title;
     private String author;
+    private String dateTime;
+    private String formatter;
+
     @ManyToOne
     private Topic topic;
     @Lob
@@ -26,6 +31,8 @@ public class Post {
         this.author= author;
         this.topic = topic;
         this.content = content;
+        this.formatter = "MM-dd-yyyy hh:MM a";
+        this.dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(formatter)).toString();
     }
 
     public Long getId() {
@@ -50,6 +57,10 @@ public class Post {
 
     public String getContent() {
         return content;
+    }
+
+    public String getDateTime() {
+        return dateTime;
     }
 
     @Override
