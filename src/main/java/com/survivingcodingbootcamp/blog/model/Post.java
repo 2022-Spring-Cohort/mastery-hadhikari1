@@ -1,6 +1,9 @@
 package com.survivingcodingbootcamp.blog.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 
 @Entity
 public class Post {
@@ -8,18 +11,28 @@ public class Post {
     @GeneratedValue
     private Long id;
     private String title;
+    private String author;
+    private String dateTime;
+    private String formatter;
+
     @ManyToOne
     private Topic topic;
     @Lob
     private String content;
 
-    protected Post() {
+    @ManyToMany(mappedBy="posts")
+    private Collection<Hashtag> hashtags;
+
+    public Post() {
     }
 
-    public Post(String title, Topic topic, String content) {
+    public Post(String title,String author, Topic topic, String content) {
         this.title = title;
+        this.author= author;
         this.topic = topic;
         this.content = content;
+        this.formatter = "MM-dd-yyyy hh:MM a";
+        this.dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(formatter)).toString();
     }
 
     public Long getId() {
@@ -30,12 +43,24 @@ public class Post {
         return title;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public Collection<Hashtag> getHashtags() {
+        return hashtags;
+    }
+
     public Topic getTopic() {
         return topic;
     }
 
     public String getContent() {
         return content;
+    }
+
+    public String getDateTime() {
+        return dateTime;
     }
 
     @Override
